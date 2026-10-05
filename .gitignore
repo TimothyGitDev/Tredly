@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Env
+.env
+.env.local
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Build
+build/
+*.log
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Native
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
