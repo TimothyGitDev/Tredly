@@ -1,10 +1,17 @@
 import argon2 from 'argon2'
 import { prisma } from '../../../prisma/lib/prisma'
 import { AppError } from '../../utils/AppError'
+import { ValidationError } from '../../utils/ValidationError'
 import { generateToken } from './auth.generateToken'
 
 export class AuthService {
 	async register(username: string, password: string) {
+		if (username.length < 6) {
+			throw new ValidationError('Логин должен быть больше шести символов', 400)
+		}
+		if (password.length < 6) {
+			throw new ValidationError('Пароль должен быть больше шести символов', 400)
+		}
 		const candidate = await prisma.user.findUnique({
 			where: {
 				username,
@@ -13,6 +20,7 @@ export class AuthService {
 		if (candidate) {
 			throw new AppError('Username уже занят', 400)
 		}
+
 		const hashPassword = await argon2.hash(password, {
 			type: argon2.argon2id,
 		})

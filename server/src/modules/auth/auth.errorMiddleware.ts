@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { AppError } from '../../utils/AppError'
+import { HttpError } from '../../utils/HttpError'
 
 export function errorMiddleware(
 	err: unknown,
@@ -7,7 +7,7 @@ export function errorMiddleware(
 	res: Response,
 	next: NextFunction
 ) {
-	if (err instanceof AppError) {
+	if (err instanceof HttpError) {
 		return res.status(err.status).json({ message: err.message })
 	}
 

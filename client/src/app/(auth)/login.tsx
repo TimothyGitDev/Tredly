@@ -4,13 +4,15 @@ import Text from '@/components/ui/text/Text'
 import { COLORS } from '@/constants/colors'
 import { SIZES } from '@/constants/sizes'
 import { useAuth } from '@/hooks/auth/useAuth'
+import Ionicons from '@react-native-vector-icons/ionicons'
 import { router } from 'expo-router'
 import { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export default function LoginScreen() {
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
+	const [isVisible, setIsVisible] = useState(false)
 	const { login } = useAuth()
 
 	const handleLogin = async () => {
@@ -41,12 +43,24 @@ export default function LoginScreen() {
 					value={username}
 					onChangeText={setUsername}
 				/>
-				<FormField
-					label='Пароль'
-					placeholder='Введите пароль'
-					value={password}
-					onChangeText={setPassword}
-				/>
+				<View>
+					<FormField
+						label='Пароль'
+						placeholder='Введите пароль'
+						value={password}
+						onChangeText={setPassword}
+						secureTextEntry={!isVisible}
+						keyboardType={isVisible ? 'visible-password' : 'default'}
+					/>
+					<TouchableOpacity onPress={() => setIsVisible(state => !state)}>
+						<Ionicons
+							name={isVisible ? 'eye' : 'eye-off'}
+							color={'#fff'}
+							size={23}
+							style={{ position: 'absolute', bottom: 16, right: 20 }}
+						/>
+					</TouchableOpacity>
+				</View>
 			</View>
 			<View style={styles.btnContainer}>
 				<Button size='large' onPress={handleLogin}>
