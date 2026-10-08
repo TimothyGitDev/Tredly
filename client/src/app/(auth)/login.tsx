@@ -39,6 +39,7 @@ export default function LoginScreen() {
 			<View style={styles.formContainer}>
 				<FormField
 					label='Логин'
+					inputType='input'
 					placeholder='Введите логин'
 					value={username}
 					onChangeText={setUsername}
@@ -46,6 +47,7 @@ export default function LoginScreen() {
 				<View>
 					<FormField
 						label='Пароль'
+						inputType='input'
 						placeholder='Введите пароль'
 						value={password}
 						onChangeText={setPassword}

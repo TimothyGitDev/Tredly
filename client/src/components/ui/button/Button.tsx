@@ -17,19 +17,30 @@ type ButtonProps = TouchableOpacityProps & {
 	type?: 'default' | 'second'
 }
 
-export default function Button({ children, size, onPress, type }: ButtonProps) {
+export default function Button({
+	children,
+	disabled,
+	size = 'medium',
+	onPress,
+	type = 'default',
+	...props
+}: ButtonProps) {
 	return (
 		<TouchableOpacity
 			style={[
 				styles[size],
+				disabled && { backgroundColor: '#161517' },
 				type === 'second' && { backgroundColor: '#2A2A2A' },
 			]}
 			onPress={onPress}
+			disabled={disabled}
+			{...props}
 		>
 			<Text
 				style={[
-					{ fontSize: 20, fontWeight: '600', lineHeight: 24 },
+					{ fontSize: 18, fontWeight: '600', lineHeight: 24 },
 					type === 'second' && { color: '#fff' },
+					disabled && { color: '#9C9C9C' },
 				]}
 			>
 				{children}
