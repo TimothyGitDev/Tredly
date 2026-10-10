@@ -9,5 +9,5 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
-export type * from './models/Channel'
+export type * from './models/Thread'
 export type * from './commonInputTypes'

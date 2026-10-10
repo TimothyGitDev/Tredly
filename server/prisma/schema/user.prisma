@@ -1,31 +1,30 @@
 model User {
-	id String @id @default(cuid())
-	
-	username String @unique
-	password String 
-	avatar String?
+  id String @id @default(cuid())
 
-	threads Thread[]
+  username String  @unique
+  password String
+  avatar   String?
 
-	createdAt DateTime @default(now()) @map("created_at")
-	updatedAt DateTime @updatedAt @map("updated_at")
+  threads Thread[]
 
-  @@index([authorId])  
-	@@map("users")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
 }
 
 model Thread {
-	id String @id @default(cuid())
+  id String @id @default(cuid())
 
-	authorId String @map("author_id")
-	author User @relation(fields: [authorId], references: [id])
+  authorId String @map("author_id")
+  author   User   @relation(fields: [authorId], references: [id])
 
-	title String
-	content String
-	
+  title   String
+  content String
 
-	createdAt DateTime @default(now()) @map("created_at")
-	updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-	@@map("threads")
+  @@index([authorId])
+  @@map("threads")
 }

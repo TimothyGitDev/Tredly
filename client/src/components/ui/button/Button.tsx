@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import {
+	ActivityIndicator,
 	TextProps as RNTextProps,
 	Text,
 	TouchableOpacity,
@@ -15,6 +16,7 @@ type ButtonProps = TouchableOpacityProps & {
 	disabled?: boolean
 	style?: RNTextProps['style']
 	type?: 'default' | 'second'
+	loading?: boolean
 }
 
 export default function Button({
@@ -23,6 +25,7 @@ export default function Button({
 	size = 'medium',
 	onPress,
 	type = 'default',
+	loading,
 	...props
 }: ButtonProps) {
 	return (
@@ -33,18 +36,22 @@ export default function Button({
 				type === 'second' && { backgroundColor: '#2A2A2A' },
 			]}
 			onPress={onPress}
-			disabled={disabled}
+			disabled={disabled || loading}
 			{...props}
 		>
-			<Text
-				style={[
-					{ fontSize: 18, fontWeight: '600', lineHeight: 24 },
-					type === 'second' && { color: '#fff' },
-					disabled && { color: '#9C9C9C' },
-				]}
-			>
-				{children}
-			</Text>
+			{loading ? (
+				<ActivityIndicator />
+			) : (
+				<Text
+					style={[
+						{ fontSize: 18, fontWeight: '600', lineHeight: 24 },
+						type === 'second' && { color: '#fff' },
+						disabled && { color: '#9C9C9C' },
+					]}
+				>
+					{children}
+				</Text>
+			)}
 		</TouchableOpacity>
 	)
 }

@@ -23,7 +23,7 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
- * Model Channel
+ * Model Thread
  * 
  */
-export type Channel = Prisma.ChannelModel
+export type Thread = Prisma.ThreadModel
