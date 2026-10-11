@@ -18,4 +18,13 @@ export const threadController = {
 			next(error)
 		}
 	},
+	async getThreads(req: Request, res: Response, next: NextFunction) {
+		try {
+			const response = await threadService.getThreads()
+
+			res.json(response)
+		} catch (error) {
+			next(error)
+		}
+	},
 }

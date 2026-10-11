@@ -14,4 +14,24 @@ export class ThreadService {
 			thread: newThread,
 		}
 	}
+	async getThreads() {
+		const threads = await prisma.thread.findMany({
+			orderBy: { createdAt: 'desc' },
+			select: {
+				id: true,
+				title: true,
+				content: true,
+				createdAt: true,
+				author: {
+					select: {
+						id: true,
+						username: true,
+						avatar: true,
+					},
+				},
+			},
+		})
+
+		return threads
+	}
 }

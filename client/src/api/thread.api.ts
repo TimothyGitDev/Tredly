@@ -1,8 +1,9 @@
+import { IThread } from '@/@types/threads.types'
 import { request } from './request'
 
 type ThreadResponse = {
 	message: string
-	thread: any
+	thread: IThread
 }
 
 export const threadApi = {
@@ -11,6 +12,12 @@ export const threadApi = {
 			method: 'POST',
 
 			body: JSON.stringify({ title, content }),
+		})
+	},
+
+	async getThreads(): Promise<IThread> {
+		return await request('/thread/getThreads', {
+			method: 'GET',
 		})
 	},
 }
