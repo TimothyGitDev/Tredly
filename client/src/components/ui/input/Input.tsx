@@ -2,7 +2,7 @@ import { TextInput, TextInputProps } from 'react-native'
 import { styles } from './styles.input'
 
 type Props = TextInputProps & {
-	type?: 'small' | 'textarea' | 'input'
+	type: 'small' | 'textarea' | 'input'
 }
 
 export default function Input({ type, ...props }: Props) {

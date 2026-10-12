@@ -15,8 +15,8 @@ export const threadApi = {
 		})
 	},
 
-	async getThreads(): Promise<IThread> {
-		return await request('/thread/getThreads', {
+	getThreads(): Promise<IThread[]> {
+		return request<IThread[]>('/thread/getThreads', {
 			method: 'GET',
 		})
 	},

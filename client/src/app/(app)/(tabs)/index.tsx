@@ -4,10 +4,12 @@ import ThreadCard from '@/components/ui/threads/ThreadCard'
 import { COLORS } from '@/constants/colors'
 import { SIZES } from '@/constants/sizes'
 import { useThread } from '@/hooks/thread/useThread'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 
 export default function Index() {
+	const [search, setSearch] = useState('')
+
 	const [threads, setThreads] = useState<IThread[]>([])
 	const { get } = useThread()
 	useEffect(() => {
@@ -18,13 +20,26 @@ export default function Index() {
 
 		getThreads()
 	}, [])
+
+	const filteredThreads = useMemo(() => {
+		if (!search.trim()) return threads
+		const query = search.toLowerCase()
+		return threads.filter(thread => thread.title.toLowerCase().includes(query))
+	}, [search, threads])
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
-				<Input placeholder='Поиск в Tredly' type='small' />
+				<Input
+					placeholder='Поиск в Tredly'
+					type='small'
+					value={search}
+					onChangeText={setSearch}
+				/>
 			</View>
 			<FlatList
-				data={threads}
+				data={filteredThreads}
+				style={{ marginTop: 10 }}
 				renderItem={({ item }) => (
 					<ThreadCard
 						title={item.title}
@@ -42,12 +57,13 @@ export default function Index() {
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: SIZES.containerTop,
-		paddingHorizontal: SIZES.containerWidth,
+
 		backgroundColor: COLORS.background,
 		flex: 1,
 	},
 	header: {
 		justifyContent: 'center',
 		alignItems: 'center',
+		paddingHorizontal: SIZES.containerWidth,
 	},
 })

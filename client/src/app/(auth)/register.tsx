@@ -21,7 +21,7 @@ export default function RegisterScreen() {
 		} else {
 			try {
 				await registration(username, password)
-				router.replace('/(app)')
+				router.replace('/(app)/(tabs)')
 			} catch (e: any) {
 				return Alert.alert(e.message)
 			}
@@ -41,6 +41,7 @@ export default function RegisterScreen() {
 			<View style={styles.formContainer}>
 				<FormField
 					label='Логин'
+					inputType='input'
 					placeholder='Введите логин'
 					value={username}
 					onChangeText={setUsername}
@@ -48,6 +49,7 @@ export default function RegisterScreen() {
 				<View>
 					<FormField
 						label='Пароль'
+						inputType='input'
 						placeholder='Введите пароль'
 						value={password}
 						onChangeText={setPassword}
